@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+ {% block body %}
+    <div class="container">
+        <table id="tourlist" class="table table-borderless table-sm">
+            <tr>
+                <th></th>
+                <th>Tour Name</th>
+            </tr>
+        {% for tour in tours %}
+            <tr>
+                <td>{{ tour.id }}</td>
+                <td>{{ tour.name }}</td>
+            </tr>
+        {% endfor %}
+        
+    </div>
+
+ {% endblock %}
