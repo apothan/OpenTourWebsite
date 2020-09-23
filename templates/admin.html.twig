@@ -1,18 +1,22 @@
-{% extends "base.html.twig" %}
+{% extends "adminbase.html.twig" %}
  {% block body %}
-    <div class="container">
-        <table id="tourlist" class="table table-borderless table-sm">
+    
+    
+        <table id="tourlist" class="table">
+        <thead>
             <tr>
                 <th></th>
                 <th>Tour Name</th>
             </tr>
+        </thead>
+        <tbody>
         {% for tour in tours %}
             <tr>
-                <td>{{ tour.id }}</td>
-                <td>{{ tour.name }}</td>
+                <td><a class="nav-link" href="{{ path('ot_admin_edittour', {'id': tour.id}) }}">{{ tour.name }}</a></td>
+                <td>Tour</td>
             </tr>
         {% endfor %}
-        
-    </div>
+        </tbody>
+    
 
  {% endblock %}

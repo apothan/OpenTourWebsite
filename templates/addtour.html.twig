@@ -1,0 +1,13 @@
+{% extends "adminbase.html.twig" %}
+ {% block body %}
+    
+        {% form_theme tourform 'bootstrap_4_layout.html.twig' %}
+        <form action="{{ path('ot_admin_createtour') }}" enctype="multipart/form-data" method="post">
+	    <fieldset>
+            <p>{{ form_label(tourform.name, 'Name') }}{{ form_widget(tourform.name) }}{{ form_errors(tourform.name) }}</p>
+            <p>{{ form_widget(tourform.submit) }}</p>
+            {{ form_rest(tourform) }}
+        </fieldset>
+        </form>
+
+ {% endblock %}
