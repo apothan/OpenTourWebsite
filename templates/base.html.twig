@@ -6,7 +6,7 @@
         {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
         <div class="ot_main">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="{{ path('ot_home') }}">TourBrand!</a>
@@ -49,6 +49,8 @@
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">© 2020 Copyleft:
             <a href="https://http://opentour.tech/"> opentour.tech</a>
+            <br />
+            <a href="{{ path('ot_admin') }}"> Admin</a>
         </div>
         <!-- Copyright -->
 

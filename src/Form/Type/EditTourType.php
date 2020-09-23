@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class EditTourType extends AbstractType
@@ -17,6 +18,7 @@ class EditTourType extends AbstractType
         $builder
             ->add('name', TextType::class,array(
                 "label" => "Tour Name"))
+            ->add('description', TextareaType::class)
             ->add('submit', SubmitType::class,array(
                 "label" => "Update"))
             
