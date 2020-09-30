@@ -3,32 +3,30 @@
    
     {% block javascripts %}
         {{ parent() }}
-        {{ encore_entry_script_tags('tourcategories') }}
+        {{ encore_entry_script_tags('toursells') }}
     {% endblock %}
     
         {% form_theme tourform 'bootstrap_4_layout.html.twig' %}
-        <form action="{{ path('ot_admin_tourcategories', {'id': tour.id}) }}" enctype="multipart/form-data" method="post">
+        <form action="{{ path('ot_admin_toursells', {'id': tour.id}) }}" enctype="multipart/form-data" method="post">
 	        <fieldset>
-            {{ form_label(tourform.categories) }}
-            {{ form_errors(tourform.categories) }}
+            {{ form_label(tourform.selldatebreaks) }}
+            {{ form_errors(tourform.selldatebreaks) }}
             <table id="category_list" class="table">
             <thead>
             <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Min</th>
-                <th>Max</th>
-                <th>Pricing</th>
+                <th>Start</th>
+                <th>End</th>
+                <th></th>
             </tr>
             </thead>
-            <tbody data-prototype="{% apply escape %}{% include 'tourcategories_row.html.twig' with {'form': tourform.categories.vars.prototype} %}{% endapply %}">
-            {% for category in tourform.categories %}
+            <tbody data-prototype="{% apply escape %}{% include 'toursells_row.html.twig' with {'form': tourform.selldatebreaks.vars.prototype} %}{% endapply %}">
+            {% for break in tourform.selldatebreaks %}
             <tr>
-                <td>{{ form_errors(category.code) }}{{ form_widget(category.code) }}</td>
-                <td>{{ form_errors(category.name) }}{{ form_widget(category.name) }}</td>
-                <td>{{ form_errors(category.min) }}{{ form_widget(category.min) }}</td>
-                <td>{{ form_errors(category.max) }}{{ form_widget(category.max) }}</td>
-                <td>{{ form_errors(category.pricing) }}{{ form_widget(category.pricing) }}</td>
+                <td>{{ form_errors(break.start) }}{{ form_widget(break.start) }}</td>
+                <td>{{ form_errors(break.end) }}{{ form_widget(break.end) }}</td>
+                {% for sell in break.sellamounts %}
+                <td>{{ form_errors(sell.amount) }}{{ form_widget(sell.amount) }}</td>
+                {% endfor %}
             </tr>
             {% endfor %}
             </tbody>
