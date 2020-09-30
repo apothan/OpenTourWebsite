@@ -1,14 +1,40 @@
 {% extends "tourbase.html.twig" %}
  {% block lower %}
    
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('tourcategories') }}
+    {% endblock %}
     
         {% form_theme tourform 'bootstrap_4_layout.html.twig' %}
-        <form action="{{ path('ot_admin_updatetour', {'id': tour.id}) }}" enctype="multipart/form-data" method="post">
-	    <fieldset>
-            <p>{{ form_label(tourform.name) }}{{ form_widget(tourform.name) }}{{ form_errors(tourform.name) }}</p>
-            <p>{{ form_label(tourform.description) }}{{ form_widget(tourform.description) }}{{ form_errors(tourform.description) }}</p>
+        <form action="{{ path('ot_admin_tourcategories', {'id': tour.id}) }}" enctype="multipart/form-data" method="post">
+	        <fieldset>
+            {{ form_label(tourform.categories) }}
+            {{ form_errors(tourform.categories) }}
+            <table id="category_list" class="table">
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Pricing</th>
+            </tr>
+            </thead>
+            <tbody data-prototype="{% apply escape %}{% include 'tourcategories_row.html.twig' with {'form': tourform.categories.vars.prototype} %}{% endapply %}">
+            {% for category in tourform.categories %}
+            <tr>
+                <td>{{ form_errors(category.code) }}{{ form_widget(category.code) }}</td>
+                <td>{{ form_errors(category.name) }}{{ form_widget(category.name) }}</td>
+                <td>{{ form_errors(category.min) }}{{ form_widget(category.min) }}</td>
+                <td>{{ form_errors(category.max) }}{{ form_widget(category.max) }}</td>
+                <td>{{ form_errors(category.pricing) }}{{ form_widget(category.pricing) }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
             <p>{{ form_widget(tourform.submit) }}</p>
-            {{ form_rest(tourform) }}
+              {{ form_rest(tourform) }}
         </fieldset>
         </form>
 

@@ -1,14 +1,32 @@
 {% extends "tourbase.html.twig" %}
  {% block lower %}
    
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('tourfeatures') }}
+    {% endblock %}
     
         {% form_theme tourform 'bootstrap_4_layout.html.twig' %}
-        <form action="{{ path('ot_admin_updatetour', {'id': tour.id}) }}" enctype="multipart/form-data" method="post">
-	    <fieldset>
-            <p>{{ form_label(tourform.name) }}{{ form_widget(tourform.name) }}{{ form_errors(tourform.name) }}</p>
-            <p>{{ form_label(tourform.description) }}{{ form_widget(tourform.description) }}{{ form_errors(tourform.description) }}</p>
+        <form action="{{ path('ot_admin_tourfeatures', {'id': tour.id}) }}" enctype="multipart/form-data" method="post">
+	        <fieldset>
+            {{ form_label(tourform.features) }}
+            {{ form_errors(tourform.features) }}
+            <table id="feature_list" class="table">
+            <thead>
+            <tr>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody data-prototype="{% apply escape %}{% include 'tourfeatures_row.html.twig' with {'form': tourform.features.vars.prototype} %}{% endapply %}">
+            {% for feature in tourform.features %}
+            <tr>
+                <td>{{ form_errors(feature.description) }}{{ form_widget(feature.description) }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
             <p>{{ form_widget(tourform.submit) }}</p>
-            {{ form_rest(tourform) }}
+              {{ form_rest(tourform) }}
         </fieldset>
         </form>
 

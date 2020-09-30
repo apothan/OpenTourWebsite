@@ -10,6 +10,9 @@ use App\Entity\Tour;
 use App\Form\Type\AddTourType;
 use App\Form\Type\EditTourType;
 use App\Form\Type\TourCategoriesType;
+use App\Form\Type\TourSellsType;
+use App\Form\Type\TourFeaturesType;
+use App\Form\Type\TourItineraryType;
 
 class TourController extends AbstractController
 {
@@ -176,17 +179,44 @@ class TourController extends AbstractController
     		throw $this->createNotFoundException('Unable to find tour entity.');
         }
 
-    	$tourForm = $this->createForm(EditTourType::class, $entity);
+    	$tourForm = $this->createForm(TourSellsType::class, $entity);
     	$tourForm->handleRequest($request);
     
     	if ($tourForm->isSubmitted() && $tourForm->isValid()) {
-    		$em = $this->getDoctrine()->getManager();
+    		// filter $originalTags to contain tags no longer present
+            foreach ($entity->getSelldatebreaks() as $break)
+            {
+                $break->setTour($entity);
+                if (isset($originalCategories))
+                    foreach ($originalSelldatebreaks as $key => $toDel)
+                    {
+                        if ($toDel->getId() === $break->getId())
+                        {
+                            unset($originalSelldatebreaks[$key]);
+                        }
+                    }
+            }
+
+            // remove the relationship between the tag and the Task
+            if (isset($originalSelldatebreaks))
+                foreach ($originalSelldatebreaks as $break)
+                {
+                    // remove the Task from the Tag
+                    //$passenger->getTasks()->removeElement($entity);
+                    // if it were a ManyToOne relationship, remove the relationship like this
+                    //$tag->setTask(null);
+
+                    $em->persist($break);
+
+                    // if you wanted to delete the Tag entirely, you can also do that
+                    $em->remove($break);
+                }
     		
     		$em->persist($entity);
     		$em->flush();
     
     		$this->get('session')->getFlashBag()->add('complete_message',"This tour has been updated!");
-    		return $this->redirect($this->generateUrl('ot_admin_edittour', array('id' => $entity->getId())));
+    		return $this->redirect($this->generateUrl('ot_admin_toursells', array('id' => $entity->getId())));
     
     	}
     
@@ -208,17 +238,44 @@ class TourController extends AbstractController
     		throw $this->createNotFoundException('Unable to find tour entity.');
         }
 
-    	$tourForm = $this->createForm(EditTourType::class, $entity);
+    	$tourForm = $this->createForm(TourItineraryType::class, $entity);
     	$tourForm->handleRequest($request);
     
     	if ($tourForm->isSubmitted() && $tourForm->isValid()) {
-    		$em = $this->getDoctrine()->getManager();
+    		// filter $originalTags to contain tags no longer present
+            foreach ($entity->getItinerary() as $day)
+            {
+                $day->setTour($entity);
+                if (isset($originalItinerary))
+                    foreach ($originalItinerary as $key => $toDel)
+                    {
+                        if ($toDel->getId() === $day->getId())
+                        {
+                            unset($originalItinerary[$key]);
+                        }
+                    }
+            }
+
+            // remove the relationship between the tag and the Task
+            if (isset($originalItinerary))
+                foreach ($originalItinerary as $day)
+                {
+                    // remove the Task from the Tag
+                    //$passenger->getTasks()->removeElement($entity);
+                    // if it were a ManyToOne relationship, remove the relationship like this
+                    //$tag->setTask(null);
+
+                    $em->persist($day);
+
+                    // if you wanted to delete the Tag entirely, you can also do that
+                    $em->remove($day);
+                }
     		
     		$em->persist($entity);
     		$em->flush();
     
     		$this->get('session')->getFlashBag()->add('complete_message',"This tour has been updated!");
-    		return $this->redirect($this->generateUrl('ot_admin_edittour', array('id' => $entity->getId())));
+    		return $this->redirect($this->generateUrl('ot_admin_touritinerary', array('id' => $entity->getId())));
     
     	}
     
@@ -240,17 +297,44 @@ class TourController extends AbstractController
     		throw $this->createNotFoundException('Unable to find tour entity.');
         }
 
-    	$tourForm = $this->createForm(EditTourType::class, $entity);
+    	$tourForm = $this->createForm(TourFeaturesType::class, $entity);
     	$tourForm->handleRequest($request);
     
     	if ($tourForm->isSubmitted() && $tourForm->isValid()) {
-    		$em = $this->getDoctrine()->getManager();
+    		// filter $originalTags to contain tags no longer present
+            foreach ($entity->getFeatures() as $feature)
+            {
+                $feature->setTour($entity);
+                if (isset($originalFeatures))
+                    foreach ($originalFeatures as $key => $toDel)
+                    {
+                        if ($toDel->getId() === $feature->getId())
+                        {
+                            unset($originalFeatures[$key]);
+                        }
+                    }
+            }
+
+            // remove the relationship between the tag and the Task
+            if (isset($originalFeatures))
+                foreach ($originalFeatures as $feature)
+                {
+                    // remove the Task from the Tag
+                    //$passenger->getTasks()->removeElement($entity);
+                    // if it were a ManyToOne relationship, remove the relationship like this
+                    //$tag->setTask(null);
+
+                    $em->persist($feature);
+
+                    // if you wanted to delete the Tag entirely, you can also do that
+                    $em->remove($feature);
+                }
     		
     		$em->persist($entity);
     		$em->flush();
     
     		$this->get('session')->getFlashBag()->add('complete_message',"This tour has been updated!");
-    		return $this->redirect($this->generateUrl('ot_admin_edittour', array('id' => $entity->getId())));
+    		return $this->redirect($this->generateUrl('ot_admin_tourfeatures', array('id' => $entity->getId())));
     
     	}
     
