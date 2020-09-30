@@ -32,7 +32,7 @@ class Tour
     /**
       * @var \Doctrine\Common\Collections\Collection
       *
-      * @ORM\OneToMany(targetEntity="App\Entity\TourCategory", mappedBy="tour")
+      * @ORM\OneToMany(targetEntity="App\Entity\TourCategory", mappedBy="tour", cascade={"persist","remove"})
       */
 
     private $categories;
@@ -40,7 +40,7 @@ class Tour
     /**
       * @var \Doctrine\Common\Collections\Collection
       *
-      * @ORM\OneToMany(targetEntity="App\Entity\SellDateBreak", mappedBy="tour")
+      * @ORM\OneToMany(targetEntity="App\Entity\SellDateBreak", mappedBy="tour", cascade={"persist","remove"})
       */
 
     private $selldatebreaks;
@@ -48,7 +48,7 @@ class Tour
     /**
       * @var \Doctrine\Common\Collections\Collection
       *
-      * @ORM\OneToMany(targetEntity="App\Entity\TourItinerary", mappedBy="tour")
+      * @ORM\OneToMany(targetEntity="App\Entity\TourItinerary", mappedBy="tour", cascade={"persist","remove"})
       */
 
     private $itinerary;
@@ -56,7 +56,7 @@ class Tour
     /**
       * @var \Doctrine\Common\Collections\Collection
       *
-      * @ORM\OneToMany(targetEntity="App\Entity\TourFeature", mappedBy="tour")
+      * @ORM\OneToMany(targetEntity="App\Entity\TourFeature", mappedBy="tour", cascade={"persist","remove"})
       */
 
       private $features;
