@@ -9,8 +9,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class TourBreakType extends AbstractType
+class TourBreakAddType extends AbstractType
 {
     
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -30,6 +31,8 @@ class TourBreakType extends AbstractType
             ->add('fri', CheckboxType::class)
             ->add('sat', CheckboxType::class)
             ->add('sun', CheckboxType::class)
+            ->add('submit', SubmitType::class,array(
+                "label" => "Add"))
         ;
     }
 
@@ -42,6 +45,6 @@ class TourBreakType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'ot_tourbreak';
+        return 'ot_tourbreakadd';
     }
 }

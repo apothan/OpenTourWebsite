@@ -7,10 +7,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Tour;
+use App\Entity\SellDateBreak;
+use App\Entity\SellAmount;
 use App\Form\Type\AddTourType;
 use App\Form\Type\EditTourType;
 use App\Form\Type\TourCategoriesType;
 use App\Form\Type\TourSellsType;
+use App\Form\Type\TourBreakAddType;
 use App\Form\Type\TourFeaturesType;
 use App\Form\Type\TourItineraryType;
 
@@ -179,6 +182,15 @@ class TourController extends AbstractController
     		throw $this->createNotFoundException('Unable to find tour entity.');
         }
 
+        $sellbreak = new SellDateBreak();
+        $sellbreak->setTour($entity);
+        foreach ($entity->getCategories() as $cat)
+        {
+            $newsell = new SellAmount();
+            $newsell->setTourcategory($cat);
+            $sellbreak->addSellamount($newsell);
+        }
+        $breakAddForm = $this->createForm(TourBreakAddType::class, $sellbreak);
     	$tourForm = $this->createForm(TourSellsType::class, $entity);
     	$tourForm->handleRequest($request);
     
@@ -222,8 +234,42 @@ class TourController extends AbstractController
     
     	return $this->render('toursells.html.twig', [
             'tourform' => $tourForm->createView(),
+            'breakaddform' => $breakAddForm->createView(),
             'tour' => $entity,
         ]);
+    }
+
+    /**
+     * @Route("/Admin/TourSellAdd/{id}", name="ot_admin_tourselladd")
+     */
+    public function tourSellAdd($id, Request $request)
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	$entity = $em->getRepository(Tour::class)->find($id);
+    
+    	if (!$entity) {
+    		throw $this->createNotFoundException('Unable to find tour entity.');
+        }
+
+        $sellbreak = new SellDateBreak();
+        $sellbreak->setTour($entity);
+        foreach ($entity->getCategories() as $cat)
+        {
+            $newsell = new SellAmount();
+            $newsell->setTourcategory($cat);
+            $sellbreak->addSellamount($newsell);
+        }
+        $breakAddForm = $this->createForm(TourBreakAddType::class, $sellbreak);
+
+        $breakAddForm->handleRequest($request);
+    
+    	if ($breakAddForm->isSubmitted() && $breakAddForm->isValid()) {
+            $em->persist($sellbreak);
+            $em->flush();
+            
+            $this->get('session')->getFlashBag()->add('complete_message',"This date has been added!");
+    		return $this->redirect($this->generateUrl('ot_admin_toursells', array('id' => $entity->getId())));
+        }
     }
 
     /**

@@ -11,11 +11,22 @@
 	        <fieldset>
             {{ form_label(tourform.selldatebreaks) }}
             {{ form_errors(tourform.selldatebreaks) }}
-            <table id="category_list" class="table">
+            <table id="sellbreak_list" class="table">
             <thead>
             <tr>
                 <th>Start</th>
                 <th>End</th>
+                {% for cat in tour.categories %}
+                        
+                <th>{{ cat.code }} ({{ cat.pricing }})</th>
+                {% endfor %}
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
                 <th></th>
             </tr>
             </thead>
@@ -27,12 +38,66 @@
                 {% for sell in break.sellamounts %}
                 <td>{{ form_errors(sell.amount) }}{{ form_widget(sell.amount) }}</td>
                 {% endfor %}
+                <td>{{ form_errors(break.mon) }}{{ form_widget(break.mon) }}</td>
+                <td>{{ form_errors(break.tue) }}{{ form_widget(break.tue) }}</td>
+                <td>{{ form_errors(break.wed) }}{{ form_widget(break.wed) }}</td>
+                <td>{{ form_errors(break.thu) }}{{ form_widget(break.thu) }}</td>
+                <td>{{ form_errors(break.fri) }}{{ form_widget(break.fri) }}</td>
+                <td>{{ form_errors(break.sat) }}{{ form_widget(break.sat) }}</td>
+                <td>{{ form_errors(break.sun) }}{{ form_widget(break.sun) }}</td>
             </tr>
             {% endfor %}
             </tbody>
             </table>
             <p>{{ form_widget(tourform.submit) }}</p>
               {{ form_rest(tourform) }}
+        </fieldset>
+        </form>
+
+        {% form_theme breakaddform 'bootstrap_4_layout.html.twig' %}
+        <form action="{{ path('ot_admin_tourselladd', {'id': tour.id}) }}" enctype="multipart/form-data" method="post">
+	        <fieldset>
+            
+            <table id="breakadd_list" class="table">
+            <thead>
+            <tr>
+                <th>Start</th>
+                <th>End</th>
+                {% for cat in tour.categories %}
+                        
+                <th>{{ cat.code }} ({{ cat.pricing }})</th>
+                {% endfor %}
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            
+            <tr>
+                <td>{{ form_errors(breakaddform.start) }}{{ form_widget(breakaddform.start) }}</td>
+                <td>{{ form_errors(breakaddform.end) }}{{ form_widget(breakaddform.end) }}</td>
+                {% for sell in breakaddform.sellamounts %}
+                <td>{{ form_errors(sell.amount) }}{{ form_widget(sell.amount) }}</td>
+                {% endfor %}
+                <td>{{ form_errors(breakaddform.mon) }}{{ form_widget(breakaddform.mon) }}</td>
+                <td>{{ form_errors(breakaddform.tue) }}{{ form_widget(breakaddform.tue) }}</td>
+                <td>{{ form_errors(breakaddform.wed) }}{{ form_widget(breakaddform.wed) }}</td>
+                <td>{{ form_errors(breakaddform.thu) }}{{ form_widget(breakaddform.thu) }}</td>
+                <td>{{ form_errors(breakaddform.fri) }}{{ form_widget(breakaddform.fri) }}</td>
+                <td>{{ form_errors(breakaddform.sat) }}{{ form_widget(breakaddform.sat) }}</td>
+                <td>{{ form_errors(breakaddform.sun) }}{{ form_widget(breakaddform.sun) }}</td>
+            </tr>
+            
+            </tbody>
+            </table>
+            <p>{{ form_widget(breakaddform.submit) }}</p>
+              {{ form_rest(breakaddform) }}
         </fieldset>
         </form>
 

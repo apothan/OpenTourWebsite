@@ -77,7 +77,7 @@ class SellDateBreak
     /**
       * @var \Doctrine\Common\Collections\Collection
       *
-      * @ORM\OneToMany(targetEntity="App\Entity\SellAmount", mappedBy="selldatebreak")
+      * @ORM\OneToMany(targetEntity="App\Entity\SellAmount", mappedBy="selldatebreak", cascade={"persist","remove"})
       */
 
     private $sellamounts;
@@ -85,6 +85,13 @@ class SellDateBreak
     public function __construct()
     {
         $this->sellamounts = new ArrayCollection();
+        $this->mon = true;
+        $this->tue = true;
+        $this->wed = true;
+        $this->thu = true;
+        $this->fri = true;
+        $this->sat = true;
+        $this->sun = true;
     }
 
     public function getId(): ?int
