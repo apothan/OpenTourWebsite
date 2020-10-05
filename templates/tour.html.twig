@@ -10,6 +10,11 @@
         
         <h3 class="card-title">{{ tour.name }}</h3>
         <p class="card-text">{{ tour.description }}</p>
+
+        {% for itin in tour.itinerary %}
+            <h4 class="card-title">{{ itin.header }}</h4>
+            <p class="card-text">{{ itin.description }}</p>
+        {% endfor %}
                         
         
     
