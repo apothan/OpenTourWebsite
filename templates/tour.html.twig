@@ -15,8 +15,15 @@
             <h4 class="card-title">{{ itin.header }}</h4>
             <p class="card-text">{{ itin.description }}</p>
         {% endfor %}
-                        
-        
+
+        {% if tour.features is iterable %}  
+        <h4>Features</h4>       
+        {% for feature in tour.features %}
+            <ul class="card-text">
+            <li>{{ feature.description }}</li>
+            </ul>
+        {% endfor %}
+        {% endif %}
     
 
  {% endblock %}
