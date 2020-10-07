@@ -8,6 +8,8 @@
 
         <br />
         
+        <div class="row">
+        <div class="col-lg-12">
         <h3 class="card-title">{{ tour.name }}</h3>
         <p class="card-text">{{ tour.description }}</p>
 
@@ -15,7 +17,41 @@
             <h4 class="card-title">{{ itin.header }}</h4>
             <p class="card-text">{{ itin.description }}</p>
         {% endfor %}
+        </div>
+        </div>
 
+        <div class="row">
+        <div class="col-lg-12">
+        {% if tour.categories is iterable %}
+        <h4>Prices</h4>  
+        <table class="table table-striped">
+            <tr>
+            <thead>
+            <th></th>
+            <th></th>
+            {% for cat in tour.categories %}
+                <th>{{ cat.code }}</th>
+            {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for break in tour.selldatebreaks %}
+            <tr>
+            <td>{{ break.start|date("Y-m-d") }}</td>
+            <td>{{ break.end|date("Y-m-d") }}</td>
+            {% for sell in break.sellamounts %}
+                <td>{{ sell.amount }}</td>
+            {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-lg-12">
         {% if tour.features is iterable %}  
         <h4>Features</h4>       
         {% for feature in tour.features %}
@@ -24,6 +60,7 @@
             </ul>
         {% endfor %}
         {% endif %}
-    
+        </div>
+        </div>
 
  {% endblock %}
