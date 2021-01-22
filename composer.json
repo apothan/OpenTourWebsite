@@ -1,6 +1,18 @@
 {
-    "type": "project",
-    "license": "proprietary",
+    "name": "apothan/OpenTourWebsite",
+    "type": "library",
+    "description": "CMS for a travel website",
+    "keywords": ["travel","tour","CMS"],
+    "homepage": "https://clicct.com",
+    "license": "GNUv3",
+    "authors": [
+        {
+            "name": "Adam Pothan",
+            "email": "adam@clicct.com",
+            "homepage": "http://clicct.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": "^7.2.5",
         "ext-ctype": "*",
