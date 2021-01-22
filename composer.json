@@ -4,7 +4,7 @@
     "description": "CMS for a travel website",
     "keywords": ["travel","tour","CMS"],
     "homepage": "https://clicct.com",
-    "license": "GNUv3",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "Adam Pothan",
