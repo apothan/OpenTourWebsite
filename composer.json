@@ -1,10 +1,10 @@
 {
-    "name": "apothan/OpenTourWebsite",
+    "name": "apothan/open-tour-website",
     "type": "library",
     "description": "CMS for a travel website",
     "keywords": ["travel","tour","CMS"],
     "homepage": "https://clicct.com",
-    "license": "GNUv3",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "Adam Pothan",
@@ -39,7 +39,7 @@
         "symfony/twig-pack": "*",
         "symfony/validator": "5.0.*",
         "symfony/web-link": "5.0.*",
-        "symfony/webpack-encore-bundle": "^1.7",
+        "symfony/webpack-encore-bundle": "^1.8",
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
