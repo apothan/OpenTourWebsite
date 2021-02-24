@@ -1,0 +1,35 @@
+{% extends "tourbase.html.twig" %}
+ {% block lower %}
+   
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('touritinerary') }}
+    {% endblock %}
+    
+        {% form_theme tourform 'bootstrap_4_layout.html.twig' %}
+        <form action="{{ path('ot_admin_touritinerary', {'id': tour.id}) }}" enctype="multipart/form-data" method="post">
+	        <fieldset>
+            {{ form_label(tourform.itinerary) }}
+            {{ form_errors(tourform.itinerary) }}
+            <table id="itinerary_list" class="table">
+            <thead>
+            <tr>
+                <th>Header</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody data-prototype="{% apply escape %}{% include 'touritinerary_row.html.twig' with {'form': tourform.itinerary.vars.prototype} %}{% endapply %}">
+            {% for itineraryday in tourform.itinerary %}
+            <tr>
+                <td>{{ form_errors(itineraryday.header) }}{{ form_widget(itineraryday.header) }}</td>
+                <td>{{ form_errors(itineraryday.description) }}{{ form_widget(itineraryday.description) }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+            <p>{{ form_widget(tourform.submit) }}</p>
+              {{ form_rest(tourform) }}
+        </fieldset>
+        </form>
+
+ {% endblock %}

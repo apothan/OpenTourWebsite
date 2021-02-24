@@ -1,0 +1,29 @@
+{% extends "adminbase.html.twig" %}
+ 
+{% block body %}
+    
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') == 'ot_admin_edittour' %} active{% endif %}" href="{{ path('ot_admin_edittour', {'id': tour.id}) }}">Details</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') == 'ot_admin_tourcategories' %} active{% endif %}" href="{{ path('ot_admin_tourcategories', {'id': tour.id}) }}">Categories</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') == 'ot_admin_toursells' %} active{% endif %}" href="{{ path('ot_admin_toursells', {'id': tour.id}) }}">Pricing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') == 'ot_admin_touritinerary' %} active{% endif %}" href="{{ path('ot_admin_touritinerary', {'id': tour.id}) }}">Itinerary</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link{% if app.request.get('_route') == 'ot_admin_tourfeatures' %} active{% endif %}" href="{{ path('ot_admin_tourfeatures', {'id': tour.id}) }}">Features</a>
+        </li>
+    </ul>
+    <br />
+    <br />
+    {% block lower %}
+    {% endblock %}
+        
+
+ {% endblock %}
