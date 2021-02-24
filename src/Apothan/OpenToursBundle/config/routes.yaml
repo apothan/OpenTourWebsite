@@ -1,0 +1,7 @@
+_open_tours_default:
+    resource: '@ApothanOpenToursBundle/src/Controller/DefaultController.php'
+    type: annotation
+
+_open_tours_tour:
+    resource: '@ApothanOpenToursBundle/src/Controller/TourController.php'
+    type: annotation

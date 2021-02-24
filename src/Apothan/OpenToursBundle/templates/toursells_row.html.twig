@@ -1,0 +1,5 @@
+                <td>{{ form_errors(form.start) }}{{ form_widget(form.start) }}</td>
+                <td>{{ form_errors(form.end) }}{{ form_widget(form.end) }}</td>
+                {% for sell in form.sellamounts %}
+                <td>{{ form_errors(sell.amount) }}{{ form_widget(sell.amount) }}</td>
+                {% endfor %}

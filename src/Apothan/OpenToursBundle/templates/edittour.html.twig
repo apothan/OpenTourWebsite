@@ -1,0 +1,15 @@
+{% extends "tourbase.html.twig" %}
+ {% block lower %}
+   
+    
+        {% form_theme tourform 'bootstrap_4_layout.html.twig' %}
+        <form action="{{ path('ot_admin_updatetour', {'id': tour.id}) }}" enctype="multipart/form-data" method="post">
+	    <fieldset>
+            <p>{{ form_label(tourform.name) }}{{ form_widget(tourform.name) }}{{ form_errors(tourform.name) }}</p>
+            <p>{{ form_label(tourform.description) }}{{ form_widget(tourform.description) }}{{ form_errors(tourform.description) }}</p>
+            <p>{{ form_widget(tourform.submit) }}</p>
+            {{ form_rest(tourform) }}
+        </fieldset>
+        </form>
+
+ {% endblock %}

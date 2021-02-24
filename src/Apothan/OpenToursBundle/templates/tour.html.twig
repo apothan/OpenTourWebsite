@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+ {% block body %}
+    
+        
+        <div>
+            <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide"><title>Placeholder</title><rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#555" dy=".3em">First slide</text></svg>
+        </div>
+
+        <br />
+        
+        <div class="row">
+        <div class="col-lg-12">
+        <h3 class="card-title">{{ tour.name }}</h3>
+        <p class="card-text">{{ tour.description }}</p>
+
+        {% for itin in tour.itinerary %}
+            <h4 class="card-title">{{ itin.header }}</h4>
+            <p class="card-text">{{ itin.description }}</p>
+        {% endfor %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-lg-12">
+        {% if tour.categories is iterable %}
+        <h4>Prices</h4>  
+        <table class="table table-striped">
+            <tr>
+            <thead>
+            <th></th>
+            <th></th>
+            {% for cat in tour.categories %}
+                <th>{{ cat.code }}</th>
+            {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for break in tour.selldatebreaks %}
+            <tr>
+            <td>{{ break.start|date("Y-m-d") }}</td>
+            <td>{{ break.end|date("Y-m-d") }}</td>
+            {% for sell in break.sellamounts %}
+                <td>{{ sell.amount }}</td>
+            {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-lg-12">
+        {% if tour.features is iterable %}  
+        <h4>Features</h4>       
+        {% for feature in tour.features %}
+            <ul class="card-text">
+            <li>{{ feature.description }}</li>
+            </ul>
+        {% endfor %}
+        {% endif %}
+        </div>
+        </div>
+
+ {% endblock %}

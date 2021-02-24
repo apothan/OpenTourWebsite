@@ -1,0 +1,39 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+
+services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Allows optimizing the container by removing unused services; this also means
+                            # fetching services directly from the container via $container->get() won't work.
+                            # The best practice is to be explicit about your dependencies anyway.
+   
+    Apothan\OpenToursBundle\Controller\DefaultController:
+        public: true
+        tags: ['controller.service_arguments', 'container.service_subscriber']
+        calls:
+            - setContainer: ['@service_container']
+
+    apothan_open_tours.default_controller:
+        alias: Apothan\OpenToursBundle\Controller\DefaultController
+        public: true
+
+
+    Apothan\OpenToursBundle\Controller\TourController:
+        public: true
+        tags: ['controller.service_arguments', 'container.service_subscriber']
+        calls:
+            - setContainer: ['@service_container']
+
+    apothan_open_tours.tour_controller:
+        alias: Apothan\OpenToursBundle\Controller\TourController
+        public: true
+
+
+    Apothan\OpenToursBundle\Repository\:
+        resource: '../src/Repository'
+        tags: ['doctrine.repository_service']
